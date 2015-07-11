@@ -4,5 +4,7 @@ var vm = {
 
 ko.applyBindings(vm);
 
-vm.selectedValue.optionsList.push({name: 'Test', val: 1})
+vm.selectedValue.addSingleOption(new KoSelectOption("Test1", 1, false))
+vm.selectedValue.addSingleOption(new KoSelectOption("Test2", 2, true))
+vm.selectedValue.addSingleOption(new KoSelectOption("Test3", 3, false))
 

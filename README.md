@@ -11,13 +11,13 @@ You can see here the very first commit of KOSelectSugar and I have yet to build 
 
 ### Todos
 
-1. Add a factory function to give out an object to be inserted into the list
-1. Add an insert function. Make sure that it validates that it has been sent an object of the correct type
-1. Build in a way to have the binding default to a certain selected item and make it so that can be defaulted based on name or value
+~~1. Add a factory function to give out an object to be inserted into the list.~~
+~~1. Add an insert function. Make sure that it validates that it has been sent an object of the correct type.~~
+1. Add a unit testing framework and write a test for the factory method so we can then revert to a TDD model
+1. Build in a way to have the binding default to a certain selected item and make it so that can be defaulted based on name or value.
 1. Build an insert function that can take and array and two parameters for name and tag and allow this function to build and array of input objects, this should work for JSON or other KO viewmodels.
-
-
+1. Add the ability to pass in a callback.
 ###Long term todos
 
-1. Make it accept XML as well?
+1. Minify source
 1. Turn this into an npm or bower module?
