@@ -25,3 +25,4 @@ You can see here the very first commit of KoSelectSugar and I have yet to build 
 
 1. Minify source
 2. Turn this into an npm or bower module?
+3. Perhaps add a way to load objects via Ajax.
