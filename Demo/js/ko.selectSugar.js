@@ -21,10 +21,10 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-function KoSelectOption(sName, oValue, bDefaultSelected) {
+function KoSelectOption(sName, oValue, bIsDefault) {
 	this.name = typeof(sName) !== 'undefined' ? sName : null;
 	this.val = typeof(oValue) !== 'undefined' ? oValue : null;
-	this.defaultSelected = typeof(bDefaultSelected) !== 'undefined' ? bDefaultSelected : null
+	this.isDefault = typeof(bIsDefault) !== 'undefined' ? bIsDefault : null
 };
 
 function KoSelectObservable_addSingleOption(oNewValue, bImmediateInsert)
@@ -48,7 +48,7 @@ function KoSelectObservable_addSingleOption(oNewValue, bImmediateInsert)
 	if (bImmediateInsert) 
 	{
 		this.optionsList.push(optionToInsert);
-		if (oNewValue.defaultSelected) this(oNewValue.val)
+		if (oNewValue.isDefault) this(oNewValue.val)
 		
 	}
 	return optionToInsert

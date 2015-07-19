@@ -5,10 +5,10 @@ describe("KoSelectOption", function ()
 		
 		expect(obj.name).not.toBeUndefined();
 		expect(obj.val).not.toBeUndefined();
-		expect(obj.defaultSelected).not.toBeUndefined();
+		expect(obj.isDefault).not.toBeUndefined();
 		expect(obj.name).toBeNull();
 		expect(obj.val).toBeNull();
-		expect(obj.defaultSelected).toBeNull()
+		expect(obj.isDefault).toBeNull()
 	});
 	
 	it("should correctly initialise all members with the parameters passed into the constructor", function () {
@@ -16,7 +16,7 @@ describe("KoSelectOption", function ()
 		
 		expect(obj.name).toEqual('name');
 		expect(obj.val).toEqual(1);
-		expect(obj.defaultSelected).toBe(true)
+		expect(obj.isDefault).toBe(true)
 	})
 });
 
@@ -88,6 +88,23 @@ describe("KoSelectObservable", function () {
 			}
 			
 			expect(container).toThrowError(TypeError);
+		});
+	});
+	
+	describe("defaulting functionality", function () {
+		var obj;
+		var cleanOptionObj;
+		
+		beforeEach(function () {
+			obj = ko.observable().KoSelectObservable();
+			cleanOptionObj = new KoSelectOption('name', 1, true);
+		});
+		
+		it("should make the observable equal to the val when a single option is added with the isDefault flag set", function ()
+		{
+			obj.addSingleOption(cleanOptionObj);
+			
+			expect(obj()).toEqual(cleanOptionObj.val);
 		});
 	});
 })
