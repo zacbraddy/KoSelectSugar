@@ -42,26 +42,20 @@ describe("KoSelectObservable", function () {
 			cleanOptionObj = new KoSelectOption('name', 1, true);
 		});
 		
-		it("should push a KoSelectOption object onto the optionsList when just an option is passed in", function () {
-			obj.addSingleOption(cleanOptionObj);
+		it("should complete without exceptions if no parameters are passed in at all", function () {
+			var container = function () {
+				obj.addSingleOption();
+			};
 			
-			expect(obj.optionsList().length).toEqual(1);
-			expect(obj.optionsList()[0]).toEqual(cleanOptionObj);
-		});
-		
-		it("should push a KoSelectOption object onto the optionsList when the option and the immediate insert flag are passed in", function () {
-			obj.addSingleOption(cleanOptionObj);
-			
-			expect(obj.optionsList().length).toEqual(1);
-			expect(obj.optionsList()[0]).toEqual(cleanOptionObj);
-		});
-		
-		it("should not push the option onto the optionsList and simple return the populated object when the immediate insert flag is off", function () {
-			var result = obj.addSingleOption(cleanOptionObj, false);
-			
+			expect(container).not.toThrow();
 			expect(obj.optionsList().length).toEqual(0);
-			expect(result).not.toBeUndefined();
-			expect(result).toEqual(cleanOptionObj);
+		});
+		
+		it("should push a KoSelectOption object onto the optionsList when an option is passed in", function () {
+			obj.addSingleOption(cleanOptionObj);
+			
+			expect(obj.optionsList().length).toEqual(1);
+			expect(obj.optionsList()[0]).toEqual(cleanOptionObj);
 		});
 		
 		it("should not add properties that aren't part of the KoSelectOption schema", function () {
@@ -77,17 +71,72 @@ describe("KoSelectObservable", function () {
 			obj.addSingleOption('string');
 			obj.addSingleOption(1);
 			obj.addSingleOption(['array']);
-			
+		
 			expect(obj.optionsList().length).toEqual(4);
 			expect(obj.optionsList()[0]).toEqual(new KoSelectOption());
 		});
+	});
+	
+	describe("KoSelectObservable_loadArray", function () {
+		var obj;
+		var cleanArray;
 		
-		it("should throw and exception when any malformed object is passed in", function () {
-			function container() {
-				obj.addSingleOptions({random: 'member'});
+		beforeEach(function () {
+			obj = ko.observable().KoSelectObservable();
+			cleanArray = [new KoSelectOption('name1', 1, true), new KoSelectOption('name2', 2, false), new KoSelectOption('name3', 3, false)];
+		});
+		
+		it("should complete without exceptions if no parameters are passed in at all", function () {
+			var container = function () {
+				obj.loadArray();
+			};
+			
+			expect(container).not.toThrow();
+			expect(obj.optionsList().length).toEqual(0);
+		});
+		
+		it("should take an empty array without exceptions", function () {
+			var container = function () {
+				obj.loadArray([]);
+			};
+			
+			expect(container).not.toThrow();
+			expect(obj.optionsList().length).toEqual(0);
+		});
+		
+		it("should throw an error if something that is not an array is passed in", function () {
+			var container = function () {
+				obj.loadArray('break');	
 			}
 			
 			expect(container).toThrowError(TypeError);
+		});
+		
+		it("should load an array of clean objects", function ()
+		{
+			obj.loadArray(cleanArray);
+			
+			expect(obj.optionsList()).not.toBeUndefined();
+			expect(obj.optionsList().length).toEqual(3);
+			expect(obj.optionsList()[0]).toEqual(cleanArray[0]);
+		});
+		
+		it("should insert all options it can but insert empty objects instead for the malformed objects found in the array", function () {
+			var dirtyArray = cleanArray;
+			dirtyArray.splice(1, 0, {random: 'member'});
+			obj.loadArray(dirtyArray);
+				
+			expect(obj.optionsList()[0]).toEqual(cleanArray[0]);
+			expect(obj.optionsList()[1]).toEqual(new KoSelectOption());
+		});
+		
+		it("should not add properties that aren't part of the KoSelectOption schema", function () {
+			var cleanOptionObj = new KoSelectOption('name', 1, true);
+			cleanOptionObj.random = 'member';
+			
+			obj.loadArray([cleanOptionObj]);
+			
+			expect(obj.optionsList()[0].random).toBeUndefined();
 		});
 	});
 	
@@ -107,4 +156,4 @@ describe("KoSelectObservable", function () {
 			expect(obj()).toEqual(cleanOptionObj.val);
 		});
 	});
-})
+});

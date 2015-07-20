@@ -4,7 +4,30 @@ var vm = {
 
 ko.applyBindings(vm);
 
-vm.selectedValue.addSingleOption(new KoSelectOption("Test1", 1, false))
-vm.selectedValue.addSingleOption(new KoSelectOption("Test2", 2, true))
-vm.selectedValue.addSingleOption(new KoSelectOption("Test3", 3, false))
+var defaultOptionsArray = [new KoSelectOption('1. I Got Loaded As Part Of An Array', 1, false)
+							, new KoSelectOption('2. I Got Loaded As Part Of An Array', 2, false)
+							, new KoSelectOption('3. I Got Loaded As Part Of An Array', 3, false)]
+							
+function loadDefaultOptionsIndividually()
+{
+	loadIndividualOption(new KoSelectOption('1. I Got Loaded Individually', 1, false));
+	loadIndividualOption(new KoSelectOption('2. I Got Loaded Individually', 2, true));
+	loadIndividualOption(new KoSelectOption('3. I Got Loaded Individually', 3, false));
+}
+
+function loadIndividualOption(option)
+{
+	vm.selectedValue.addSingleOption(option);
+}
+
+function loadDefaultOptionsArray()
+{
+	loadArrayOfOptions(defaultOptionsArray);
+}
+
+function loadArrayOfOptions(options)
+{
+	vm.selectedValue.loadArray(options);
+}
+
 
