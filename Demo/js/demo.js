@@ -30,4 +30,7 @@ function loadArrayOfOptions(options)
 	vm.selectedValue.loadArray(options);
 }
 
-
+function clearOptions()
+{
+	vm.selectedValue.clearOptions();
+}

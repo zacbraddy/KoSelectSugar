@@ -29,6 +29,8 @@ function KoSelectOption(sName, oValue, bIsDefault) {
 
 ko.observable.fn.KoSelectObservable = function()
 {	
+	var self = this;
+	
 	function KoSelectObservable_addSingleOption(oNewValue)
 	{	
 		if (typeof(oNewValue) === 'undefined') return;
@@ -38,7 +40,7 @@ ko.observable.fn.KoSelectObservable = function()
 		if (typeof(optionToInsert) !== 'undefined')
 		{
 			this.optionsList.push(optionToInsert);
-			if (oNewValue.isDefault) this(oNewValue.val);
+			if (oNewValue.isDefault) self(oNewValue.val);
 		} else {
 			optionToInsert = new KoSelectOption();
 			this.optionsList.push(optionToInsert);
@@ -68,14 +70,19 @@ ko.observable.fn.KoSelectObservable = function()
 				valueToInsert = new KoSelectOption();
 			}
 			valuesForInsertion.push(valueToInsert);
-			if (valueToInsert.isDefault) this(valueToInsert.val);
+			if (valueToInsert.isDefault) self(valueToInsert.val);
 		}
 		
-		this.optionsList.push.apply(this.optionsList, valuesForInsertion);
+		self.optionsList.push.apply(self.optionsList, valuesForInsertion);
 		if (validationFailed)
 		{
 			console.log("Some KoSelect options in the array loaded were found to be malformed. For these instances an empty option has been inserted instead.");
 		}
+	}
+	
+	function KoSelectObservable_clearOptions()
+	{
+		self.optionsList.removeAll();
 	}
 	
 	function TryParseKoSelectOption(objToParse)
@@ -93,11 +100,11 @@ ko.observable.fn.KoSelectObservable = function()
 		
 		return optionToInsert;
 	}
-
-	var self = this;
+	
 	self.optionsList = ko.observableArray();
 	self.addSingleOption = KoSelectObservable_addSingleOption;
 	self.loadArray = KoSelectObservable_loadArray;
+	self.clearOptions = KoSelectObservable_clearOptions;
 	
 	return self;
 };

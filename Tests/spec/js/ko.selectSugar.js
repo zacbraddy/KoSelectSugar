@@ -140,13 +140,30 @@ describe("KoSelectObservable", function () {
 		});
 	});
 	
+	describe("KoSelectObservable_clearOptions", function () {
+		var obj;
+		
+		beforeEach(function() {
+			obj = ko.observable().KoSelectObservable();
+			obj.optionsList.push(new KoSelectOption('name', 1, true));
+		});
+		
+		it("should clear all options currently in the observable array", function () {
+			obj.clearOptions();
+			
+			expect(obj.optionsList().length).toEqual(0);
+		});
+	})
+	
 	describe("defaulting functionality", function () {
 		var obj;
 		var cleanOptionObj;
+		var cleanOptionArray;
 		
 		beforeEach(function () {
 			obj = ko.observable().KoSelectObservable();
 			cleanOptionObj = new KoSelectOption('name', 1, true);
+			cleanOptionArray = [new KoSelectOption('name1', 1, false), new KoSelectOption('name2', 2, true), new KoSelectOption('name3', 3, false)];
 		});
 		
 		it("should make the observable equal to the val when a single option is added with the isDefault flag set", function ()
@@ -154,6 +171,41 @@ describe("KoSelectObservable", function () {
 			obj.addSingleOption(cleanOptionObj);
 			
 			expect(obj()).toEqual(cleanOptionObj.val);
+		});
+		
+		it("should change the observable equal to the val with there is already a default and another option is added with the isDefault flag set", function () {
+			obj.addSingleOption(new KoSelectOption('nameToBeOverwritten', 3, true));
+			obj.addSingleOption(cleanOptionObj);
+			
+			expect(obj()).toEqual(cleanOptionObj.val);
+		});
+		
+		it("should leave the value of the observable if an option is added with the isDefault flag turned off", function() {
+			obj.addSingleOption(cleanOptionObj);
+			obj.addSingleOption(new KoSelectOption('nameToBeOverwritten', 3, false));
+			
+			expect(obj()).toEqual(cleanOptionObj.val);
+		});
+		
+		it("should make the observable equal to the val when an array is loaded with an option that has the isDefault flag set", function ()
+		{
+			obj.loadArray(cleanOptionArray);
+			
+			expect(obj()).toEqual(cleanOptionArray[1].val);
+		});
+		
+		it("should change the observable equal to the val with there is already a default and an array with another option with the isDefault flag set", function () {
+			obj.loadArray([new KoSelectOption('nameToBeOverwritten', 3, true)]);
+			obj.loadArray(cleanOptionArray);
+			
+			expect(obj()).toEqual(cleanOptionArray[1].val);
+		});
+		
+		it("should leave the value of the observable if an array with an option is added with the isDefault flag turned off", function() {
+			obj.loadArray(cleanOptionArray);
+			obj.loadArray([new KoSelectOption('nameToBeOverwritten', 3, false)]);
+			
+			expect(obj()).toEqual(cleanOptionArray[1].val);
 		});
 	});
 });
