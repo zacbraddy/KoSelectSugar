@@ -6,7 +6,7 @@ ko.applyBindings(vm);
 
 var defaultOptionsArray = [new KoSelectOption('1. I Got Loaded As Part Of An Array', 1, false)
 							, new KoSelectOption('2. I Got Loaded As Part Of An Array', 2, false)
-							, new KoSelectOption('3. I Got Loaded As Part Of An Array', 3, false)]
+							, new KoSelectOption('3. I Got Loaded As Part Of An Array', 3, true)]
 							
 function loadDefaultOptionsIndividually()
 {

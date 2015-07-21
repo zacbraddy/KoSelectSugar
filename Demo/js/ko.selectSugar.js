@@ -67,7 +67,8 @@ ko.observable.fn.KoSelectObservable = function()
 				validationFailed = true;
 				valueToInsert = new KoSelectOption();
 			}
-			valuesForInsertion.push(valueToInsert);	
+			valuesForInsertion.push(valueToInsert);
+			if (valueToInsert.isDefault) this(valueToInsert.val);
 		}
 		
 		this.optionsList.push.apply(this.optionsList, valuesForInsertion);
