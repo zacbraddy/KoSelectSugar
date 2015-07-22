@@ -55,13 +55,13 @@ ko.observable.fn.KoSelectObservable = function()
 		}
 	}
 	
-	function KoSelectObservable_loadArray(aValues)
+	function KoSelectObservable_appendArray(aValues)
 	{
 		if (typeof(aValues) === 'undefined') return;
 		if (aValues.length === 0) return;
 		if (aValues.constructor !== Array)
 		{ 
-			throw new TypeError('No options added to KoSelect object because the value passed to loadArray was not an Array');
+			throw new TypeError('No options added to KoSelect object because the value passed to appendArray was not an Array');
 			return;
 		}
 		
@@ -87,6 +87,19 @@ ko.observable.fn.KoSelectObservable = function()
 		}
 	}
 	
+	function KoSelectObservable_loadArray(aValues)
+	{
+		if (typeof(aValues) === 'undefined') return;
+		if (aValues.constructor !== Array)
+		{ 
+			throw new TypeError('No options added to KoSelect object because the value passed to loadArray was not an Array');
+			return;
+		}
+		
+		KoSelectObservable_clearOptions();
+		KoSelectObservable_appendArray(aValues);
+	}
+	
 	function KoSelectObservable_clearOptions()
 	{
 		self.optionsList.removeAll();
@@ -110,6 +123,7 @@ ko.observable.fn.KoSelectObservable = function()
 	
 	self.optionsList = ko.observableArray();
 	self.addSingleOption = KoSelectObservable_addSingleOption;
+	self.appendArray = KoSelectObservable_appendArray;
 	self.loadArray = KoSelectObservable_loadArray;
 	self.clearOptions = KoSelectObservable_clearOptions;
 	
