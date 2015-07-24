@@ -267,4 +267,54 @@ describe("KoSelectObservable", function () {
 			expect(obj()).toEqual(cleanOptionArray[1].val);
 		});
 	});
+	
+	describe("Callback functionality tests", function (){
+		var cleanOptionObj;
+		var callBackFixture;
+		
+		beforeEach(function () {
+			cleanOptionObj = new KoSelectOption('name', 1, true);
+			callBackFixture = { callback: function () { return; }};	
+		});
+		
+		it("should not attempt to call something that isn't a function passed in as a function", function () {
+			var spy = spyOn(callBackFixture, 'callback');
+			
+			obj.addSingleOption(cleanOptionObj, spy);
+			
+			expect(spy).toHaveBeenCalled();			
+		});
+		
+		it("should call the callback if it is passed in to the append function", function () {
+			var spy = spyOn(callBackFixture, 'callback');
+			
+			obj.appendArray([cleanOptionObj], spy);
+			
+			expect(spy).toHaveBeenCalled();
+		});
+		
+		it("should call the callback if it is passed in to the load function", function () {
+			var spy = spyOn(callBackFixture, 'callback');
+			
+			obj.loadArray([cleanOptionObj], spy);
+			
+			expect(spy).toHaveBeenCalled();
+		});
+		
+		it("should call the callback if it is passed in to the load function", function () {
+			var spy = spyOn(callBackFixture, 'callback');
+			
+			obj.loadArray([cleanOptionObj], spy);
+			
+			expect(spy).toHaveBeenCalled();
+		});
+		
+		it("should call the callback if it is passed in to the clear function", function () {
+			var spy = spyOn(callBackFixture, 'callback');
+			
+			obj.clearOptions(spy);
+			
+			expect(spy).toHaveBeenCalled();
+		});
+	});
 });
