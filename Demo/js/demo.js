@@ -1,36 +1,33 @@
 var vm = {
-	selectedValue: ko.observable(1).KoSelectObservable()
+	talkingLabel: ko.observable('I have a feeling like I\'m about to be bound using KOSelectSugar!'),
+	selectedValue: ko.observable(1).KoSelectObservable(),
+	userOptions: ko.observableArray([new KoSelectOption('I\'m a KoSelectSugar option!', 1, true)]),
 };
 
 ko.applyBindings(vm);
-
-var defaultOptionsArray = [new KoSelectOption('1. I Got Loaded As Part Of An Array', 1, false)
-							, new KoSelectOption('2. I Got Loaded As Part Of An Array', 2, false)
-							, new KoSelectOption('3. I Got Loaded As Part Of An Array', 3, true)]
 							
-function loadDefaultOptionsIndividually()
+function loadOptionsIndividually()
 {
-	loadIndividualOption(new KoSelectOption('1. I Got Loaded Individually', 1, false));
-	loadIndividualOption(new KoSelectOption('2. I Got Loaded Individually', 2, true));
-	loadIndividualOption(new KoSelectOption('3. I Got Loaded Individually', 3, false));
+	for (var option in vm.userOptions())
+		vm.selectedValue.addSingleOption(vm.userOptions()[option], function() {vm.talkingLabel('Can you beleive I just appended all those options to the end of this select here individually?')});
 }
 
-function loadIndividualOption(option)
+function loadOptionsArray()
 {
-	vm.selectedValue.addSingleOption(option);
-}
-
-function loadDefaultOptionsArray()
-{
-	loadArrayOfOptions(defaultOptionsArray);
-}
-
-function loadArrayOfOptions(options)
-{
-	vm.selectedValue.loadArray(options);
+	vm.selectedValue.loadArray(vm.userOptions(), function () {vm.talkingLabel('Oh man, those options down there totally just got loaded all at once as array!')});
 }
 
 function clearOptions()
 {
-	vm.selectedValue.clearOptions();
+	vm.selectedValue.clearOptions(function () {vm.talkingLabel('So you just cleared my options, pretty sweet huh?')});
+}
+
+function addUserOption()
+{
+	vm.userOptions.push(new KoSelectOption());
+}
+
+function deleteUserOption(optionToRemove)
+{
+	vm.userOptions.remove(ko.dataFor(optionToRemove));
 }

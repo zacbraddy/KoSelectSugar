@@ -11,15 +11,37 @@
 	</head>
 	<body>
 		<div class="container">
+			<h1 class="title">Welcome to the KoSelectSugar demo</h1>
+			<h3 class="strapline">...look Mum no hands!!</h3>
 			<div class="jumbotron mainContent">
-				<label for="KOSelectSugarBound">Check me out! I'm bound using KOSelectSugar!</label>
-				<select id="KOSelectSugarBound" class="form-control KOSelectSugarControl" data-bind="KoSelect: selectedValue"></select>
-				<button class="btn btn-info" onclick="loadDefaultOptionsIndividually()">Load options Individually</button>
-				<button class="btn btn-info" onclick="loadDefaultOptionsArray()">Load options all at once as a JS array</button>
-				<button class="btn btn-info" onclick="clearOptions()">Clear currently loaded options</button>
+				<div class="topPanel">
+					<label for="KOSelectSugarBound" data-bind="text: talkingLabel"></label>
+					<select id="KOSelectSugarBound" class="form-control KOSelectSugarControl" data-bind="KoSelect: selectedValue"></select>
+					<div class="buttonsGroup">
+						<button class="btn btn-info actionButton" onclick="loadOptionsIndividually()">Load options Individually</button>
+						<button class="btn btn-info actionButton" onclick="loadOptionsArray()">Load options all at once from a JS array</button>
+						<button class="btn btn-info actionButton" onclick="clearOptions()">Clear currently loaded options</button>
+					</div>
+				</div>
+				<div class="tableInsert">
+					<div class="tableInsertTitle">Why don't you enter some values in the table below and hit one of the load buttons above to try it out...</div>
+					<div class="tableInsertHeader">
+						<div class="tableInsertTextBoxHeader">Display Name</div>
+						<div class="tableInsertTextBoxHeader">Value</div>
+						<div class="tableInsertCheckBoxHeader">isDefault?</div>
+					</div>
+					<div class="tableInsertGroup" data-bind="foreach: userOptions">
+						<div class="tableInsertTextBoxContainer"><input class="form-control" type="text" data-bind="value: name" placeholder="Display Name" /></div>
+						<div class="tableInsertTextBoxContainer"><input class="form-control" type="text" data-bind="value: val" placeholder="Value"/></div>
+						<div class="tableInsertCheckBoxContainer"><input type="checkbox" data-bind="checked: isDefault" placeholder="isDefault"/></div>
+						<div class="btn btn-danger tableInsertDeleteButton" onclick="deleteUserOption(this)"><span>X</span></div>
+					</div>
+				</div>
+									<div class="buttonsGroup">
+						<button class="btn btn-info" onclick="addUserOption()">Give me another empty option on this list, now</button>
+					</div>
 			</div>
 		</div>
-
 	    <script src="js/thirdparty/knockout-3.3.0.js"></script>
 		<script src="js/ko.selectSugar.min.js"></script>
 		<script src="js/demo.js"></script>

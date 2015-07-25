@@ -1,10 +1,85 @@
+html
+{
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	height: 100%;
+	background: -webkit-linear-gradient(#ed9017, #f6e6b4);
+	background: -o-linear-gradient(#ed9017, #f6e6b4);
+	background: linear-gradient(#ed9017, #f6e6b4);
+}
+
+.title
+{
+	padding-left: 2em;
+}
+
+.strapline
+{
+	padding-left: 16em;
+}
+
 .mainContent
 {
-	margin-top: 10%;
-	background-color: #dadada;
+	color: #ed8055;
+	margin-top: 4%;
+	background-color: #f6e6b4;
 }
 
 .KOSelectSugarControl
 {
-	width: 55%
+	width: 100%
+}
+
+.actionButton
+{
+	width: 33%
+}
+
+.buttonsGroup
+{
+	margin-top: 1.5em;
+}
+
+.topPanel
+{
+	width: 100%
+}
+
+.tableInsertTitle
+{
+	margin-top: 1.5em;
+	margin-bottom: 0.75em;
+	font-weight: bold;
+	font-size: 16px;	
+}
+
+.tableInsertTextBoxContainer, .tableInsertTextBoxHeader
+{
+	display: inline-block;
+	width: 42%;
+}
+
+.tableInsertTextBoxHeader
+{
+	font-weight: bold;
+}
+
+.tableInsertCheckBoxContainer, .tableInsertCheckBoxHeader
+{
+	display: inline-block;
+	padding-left: 1.5em;
+	width: 10%;
+}
+
+.tableInsertCheckBoxHeader
+{
+	font-weight: bold;
+}
+
+.tableInsertDeleteButton
+{
+	font-weight: bolder;
 }
