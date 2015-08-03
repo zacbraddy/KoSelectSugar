@@ -38,7 +38,7 @@ ko.observable.fn.KoSelectObservable = function()
 {	
 	var self = this;
 	
-	function KoSelectObservable_addSingleOption(oNewValue, callBack)
+	function KoSelectObservable_appendSingleOption(oNewValue, callBack)
 	{	
 		if (typeof(oNewValue) === 'undefined') return;
 		
@@ -127,7 +127,7 @@ ko.observable.fn.KoSelectObservable = function()
 	}
 	
 	self.optionsList = ko.observableArray();
-	self.addSingleOption = KoSelectObservable_addSingleOption;
+	self.appendSingleOption = KoSelectObservable_appendSingleOption;
 	self.appendArray = KoSelectObservable_appendArray;
 	self.loadArray = KoSelectObservable_loadArray;
 	self.clearOptions = KoSelectObservable_clearOptions;

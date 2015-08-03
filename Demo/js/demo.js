@@ -9,7 +9,7 @@ ko.applyBindings(vm);
 function loadOptionsIndividually()
 {
 	for (var option in vm.userOptions())
-		vm.selectedValue.addSingleOption(vm.userOptions()[option], function() {vm.talkingLabel('Can you beleive I just appended all those options to the end of this select here individually?')});
+		vm.selectedValue.appendSingleOption(vm.userOptions()[option], function() {vm.talkingLabel('Can you beleive I just appended all those options to the end of this select here individually?')});
 }
 
 function loadOptionsArray()
