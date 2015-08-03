@@ -74,5 +74,7 @@ vm.selectedValue.loadArray([new KoSelectOption('Option 1', 1, false)], function 
 ```
 
 **Author**: Zac Braddy
+
 **Email**: zacharybraddy.at.gmail.com
+
 **LinkedIn**: [https://uk.linkedin.com/pub/zac-braddy/22/81b/17a]
